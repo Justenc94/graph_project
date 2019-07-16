@@ -1,0 +1,7 @@
+#ignore everything
+*
+
+#unignore source files and .gitignore
+!*.h
+!*.cpp
+!.gitignore
