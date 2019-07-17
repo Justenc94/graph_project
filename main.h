@@ -8,6 +8,8 @@ Notes:
 #ifndef MAIN_H
 #define MAIN_H
 #include <iostream>
+#include "functions.h"
+#include "graph.h"
 
 using namespace std;
 
