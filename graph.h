@@ -40,7 +40,8 @@ public:
 private:
     //TODO: Helper methods or above methods that need to access private data
     //TODO: Will probably have to have helper methods for the cases: undirected weighted, directed unweighted
-    void makeDirectedGraph();
+    void makeDirectedGraph(std::string);
+    void makeUndirectedGraph(std::string);
 
 };
 

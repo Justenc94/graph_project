@@ -20,15 +20,34 @@ void Graph::makeGraph(string file_name) {
     getline(data_file, data_string, ',');
     if(data_string == file_check){
         cout << "directed" << endl;
-        //TODO: call helper function to make directed graph
+        makeDirectedGraph(file_name);
     }else{
         cout << "undirected" << endl;
-        //TODO: call helper function to make undirected graph
+        makeUndirectedGraph(file_name);
     }
 }
 
-void Graph::makeDirectedGraph() {
+void Graph::makeDirectedGraph(string file_name) {
+    ifstream data_file;
+    string data_string;
 
+    data_file.open(file_name);
+    while(!data_file.eof()){
+        while (getline(data_file, data_string, '\n')){
+            cout << "Data: " << data_string << endl;
+        }
+        while (getline(data_file, data_string, ',')){
+            cout << "Data: " << data_string << endl;
+        }
+        while (getline(data_file, data_string, '\n')){
+            cout << "Data: " << data_string << endl;
+        }
+    }
+}
+
+void Graph::makeUndirectedGraph(string file_name) {
+    ifstream data_file;
+    data_file.open(file_name);
 }
 
 void Graph::addVertex(char name, char source) {
