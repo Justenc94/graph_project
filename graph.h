@@ -8,11 +8,17 @@ Notes:
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <fstream>
+#include <iostream>
+#include <string>
+#include "main.h"
 #include "data.h"
 
 class Graph {
 
 public:
+
+    Graph();
     //TODO: Breadth-First traversal method - outputs to console
     //TODO: Depth-First traversal method - outputs to console
     //TODO: *BONUS* Point to Point traversal method - outputs to console
@@ -26,8 +32,15 @@ public:
     //TODO: Graph information: Is connected: true or false
     //TODO: Graph information: List disconnected: Lists vertices that aren't connected
 
+    void makeGraph(std::string);
+
+    void addVertex(char, char);
+    void addEdge(int, int);
+
 private:
     //TODO: Helper methods or above methods that need to access private data
+    //TODO: Will probably have to have helper methods for the cases: undirected weighted, directed unweighted
+    void makeDirectedGraph();
 
 };
 

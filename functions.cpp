@@ -20,10 +20,11 @@ int get_filesize(string file_name){
             ++size;
         }
     }
+
+
     data_file.close();
     return size;
 }
-
 
 int check_file(int arg_count, char **file_name){
     fstream temp_file;

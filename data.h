@@ -9,11 +9,13 @@ Notes:
 #define DATA_H
 
 struct Node {
-
+    char val;
+    int cost;
+    Node *next;
 };
 
 struct Edge {
-
+    int source, dest, weight;
 };
 
 #endif //DATA_H

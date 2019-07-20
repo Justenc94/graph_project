@@ -17,4 +17,5 @@ using namespace std;
 int check_file(int, char**);
 int get_filesize(string);
 
+
 #endif //FUNCTIONS_H

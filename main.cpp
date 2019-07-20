@@ -30,5 +30,15 @@ int main(int argc, char** argv) {
     }else{
         cout << "File is NOT empty" << endl;
     }
+
+
+    Graph graph;
+
+    graph.makeGraph(argv[file_position]);
+
+    graph.addVertex('a', 'b');
+    graph.addVertex('b', 'a');
+
+
     return 0;
 }
