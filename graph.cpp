@@ -47,7 +47,20 @@ void Graph::makeDirectedGraph(string file_name) {
 
 void Graph::makeUndirectedGraph(string file_name) {
     ifstream data_file;
+    string data_string;
+
     data_file.open(file_name);
+    while(!data_file.eof()){
+        while (getline(data_file, data_string, '\n')){
+            cout << "Data: " << data_string << endl;
+        }
+        while (getline(data_file, data_string, ',')){
+            cout << "Data: " << data_string << endl;
+        }
+        while (getline(data_file, data_string, '\n')){
+            cout << "Data: " << data_string << endl;
+        }
+    }
 }
 
 void Graph::addVertex(char name, char source) {
