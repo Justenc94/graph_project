@@ -9,8 +9,8 @@ Notes:
 #define DATA_H
 
 struct Node {
-    char val;
-    Node *next;
+    int id;
+    Node *next, *back;
 };
 
 struct Edge {
