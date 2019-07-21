@@ -43,6 +43,9 @@ private:
     void makeDirectedGraph(std::string);
     void makeUndirectedGraph(std::string);
 
+    int edge_count;
+    int vertex_count;
+
 };
 
 #endif //GRAPH_H

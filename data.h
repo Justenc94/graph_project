@@ -10,7 +10,6 @@ Notes:
 
 struct Node {
     char val;
-    int cost;
     Node *next;
 };
 
