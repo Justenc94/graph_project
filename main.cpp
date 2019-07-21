@@ -36,8 +36,6 @@ int main(int argc, char** argv) {
 
     graph.makeGraph(argv[file_position]);
 
-    graph.addVertex('a', 'b');
-    graph.addVertex('b', 'a');
 
 
     return 0;

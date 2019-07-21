@@ -9,8 +9,8 @@ Notes:
 #define DATA_H
 
 struct Node {
-    int id;
-    Node *next, *back;
+    std::string id;
+    Node *next;
 };
 
 struct Edge {

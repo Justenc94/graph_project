@@ -11,6 +11,7 @@ Notes:
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
 #include "main.h"
 #include "data.h"
 
@@ -34,8 +35,8 @@ public:
 
     void makeGraph(std::string);
 
-    void addVertex(char, char);
-    void addEdge(int, int);
+    void addVertex(char);
+    void addEdge(char, char, int);
 
 private:
     //TODO: Helper methods or above methods that need to access private data
@@ -45,6 +46,9 @@ private:
 
     int edge_count;
     int vertex_count;
+
+    //int adjacency_matrix[][];
+    Node *graph_data[];
 
 };
 

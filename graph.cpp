@@ -31,12 +31,22 @@ void Graph::makeGraph(string file_name) {
 void Graph::makeDirectedGraph(string file_name) {
     ifstream data_file;
     string data_string;
+    int graph_size = get_filesize(file_name);
+
+    int adjacency_matrix[graph_size][graph_size];
+    graph_data[graph_size];
 
     data_file.open(file_name);
     while(!data_file.eof()){
         cout << "Printing graph for debug:" << endl;
+        getline(data_file, data_string, ',');
 
-        getline(data_file, data_string, '\n');
+        for (int i = 0; i < graph_size-1; i++) {
+            getline(data_file, data_string, ',');
+            graph_data[i] = new Node;
+            graph_data[i]->id = data_string;
+            cout << "ID: " << graph_data[i]->id << endl;
+        }
 
         while (getline(data_file, data_string, ',')){
             cout << data_string << endl;
@@ -66,10 +76,10 @@ void Graph::makeUndirectedGraph(string file_name) {
     }
 }
 
-void Graph::addVertex(char name, char source) {
+void Graph::addVertex(char name) {
 
 }
 
-void Graph::addEdge(int, int) {
+void Graph::addEdge(char source, char dest, int weight) {
 
 }
