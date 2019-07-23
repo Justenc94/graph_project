@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 
     graph.makeGraph(argv[file_position]);
 
-
+    graph.printGraph();
 
     return 0;
 }

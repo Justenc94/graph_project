@@ -20,6 +20,7 @@ class Graph {
 public:
 
     Graph();
+    ~Graph();
     //TODO: Breadth-First traversal method - outputs to console
     //TODO: Depth-First traversal method - outputs to console
     //TODO: *BONUS* Point to Point traversal method - outputs to console
@@ -36,7 +37,9 @@ public:
     void makeGraph(std::string);
 
     void addVertex(char);
-    void addEdge(char, char, int);
+    void addEdge();
+
+    void printGraph();
 
 private:
     //TODO: Helper methods or above methods that need to access private data
@@ -47,8 +50,8 @@ private:
     int edge_count;
     int vertex_count;
 
-    //int adjacency_matrix[][];
-    Node *graph_data[];
+    std::vector<Node> graph_data;
+    std::vector<Edge> edge_list;
 
 };
 

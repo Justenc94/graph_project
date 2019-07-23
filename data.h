@@ -9,7 +9,7 @@ Notes:
 #define DATA_H
 
 struct Node {
-    std::string id;
+    char id;
     Node *next;
 };
 
