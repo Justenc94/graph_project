@@ -8,13 +8,20 @@ Notes:
 #ifndef DATA_H
 #define DATA_H
 
+#include <vector>
+using namespace std;
+
+struct Node;
+struct Edge;
+
 struct Node {
-    char id;
-    Node *next;
+    char label;
+    vector<Edge*> edge_list;
 };
 
 struct Edge {
-    int source, dest, weight;
+    int weight;
+    Node *source, *dest;
 };
 
 #endif //DATA_H

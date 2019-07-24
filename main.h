@@ -8,8 +8,10 @@ Notes:
 #ifndef MAIN_H
 #define MAIN_H
 #include <iostream>
+#include <vector>
 #include "functions.h"
 #include "graph.h"
+#include "data.h"
 
 using namespace std;
 

@@ -35,11 +35,11 @@ public:
     //TODO: Graph information: List disconnected: Lists vertices that aren't connected
 
     void makeGraph(std::string);
+    void print_graph();
 
     void addVertex(char);
-    void addEdge();
+    void addEdge(char, char, int);
 
-    void printGraph();
 
 private:
     //TODO: Helper methods or above methods that need to access private data
@@ -50,7 +50,7 @@ private:
     int edge_count;
     int vertex_count;
 
-    std::vector<Node> graph_data;
+    std::vector<Node> graph_nodes;
     std::vector<Edge> edge_list;
 
 };

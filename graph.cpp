@@ -39,16 +39,7 @@ void Graph::makeDirectedGraph(string file_name) {
 
     data_file.open(file_name);
 
-    getline(data_file, data_string, ',');
-    for (int i = 0; i < graph_size-1; i++) {
-        getline(data_file, data_string, ',');
-        Node temp_node;
-        temp_node.id = data_string[0];
-        graph_data.push_back(temp_node);
-    }
-    for (int j = 0; j < graph_size-1; ++j) {
-        cout << "ID: " << graph_data.at(j).id << endl;
-    }
+
 }
 
 void Graph::makeUndirectedGraph(string file_name) {
@@ -70,25 +61,50 @@ void Graph::makeUndirectedGraph(string file_name) {
 }
 
 void Graph::addVertex(char name) {
-
+    auto *temp_node = new Node;
+    temp_node->label = name;
+    graph_nodes.push_back(*temp_node);
+    vertex_count++;
 }
 
-void Graph::addEdge() {
+void Graph::addEdge(char source, char dest, int weight) {
+    Edge *temp_edge = new Edge;
 
+    temp_edge->weight = weight;
+
+    int i = 0;
+
+    for (auto &temp_source : graph_nodes) {
+        cout << "Debug for add edge: " << temp_source.label << endl;
+        if(source == temp_source.label){
+            cout << "*** MATCH - SOURCE ***  - " << temp_source.label << endl;
+            temp_source.edge_list.push_back(temp_edge);
+        }
+        i++;
+    }
+    for (auto &temp_dest : graph_nodes) {
+        cout << "Debug for add edge: " << temp_dest.label << endl;
+        if(dest == temp_dest.label){
+            cout << "*** MATCH - DESTINATION ***  - " << temp_dest.label << endl;
+            temp_dest.edge_list.push_back(temp_edge);
+        }
+    }
+    edge_count++;
 }
 
-void Graph::printGraph()
-{
-    int N = vertex_count;
+void Graph::print_graph() {
 
-    for (int i = 0; i < N; i++)
-    {
-        // print current vertex number
-        cout << i << " --> ";
+    cout << "Vertex count: " << vertex_count << endl;
+    cout << "Edge count: " << edge_count << endl;
 
-        // print all neighboring vertices of vertex i
-        for (int v : adjList[i])
-            cout << v << " ";
-        cout << endl;
+    for (auto print_node : graph_nodes) {
+        cout << "\n======== Node ========" << endl;
+        cout << "Label: " << print_node.label << endl;
+
+        cout << "\n======== Edges ========" << endl;
+
+        cout << "Num of edges: " << print_node.edge_list.size() << endl;
+        cout << "Destination: " << endl;
+        cout << "Weight: " << endl;
     }
 }
