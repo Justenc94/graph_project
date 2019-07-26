@@ -16,7 +16,7 @@ struct Edge;
 
 struct Node {
     char label;
-    vector<Edge*> edge_list;
+    vector<Edge *> edge_list;
 };
 
 struct Edge {

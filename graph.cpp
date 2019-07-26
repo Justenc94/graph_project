@@ -16,6 +16,8 @@ Graph::~Graph() {
 
 }
 
+//**********************************************   PUBLIC METHODS  **********************************************
+
 void Graph::makeGraph(string file_name) {
     ifstream data_file;
     string data_string;
@@ -31,6 +33,54 @@ void Graph::makeGraph(string file_name) {
         makeUndirectedGraph(file_name);
     }
 }
+
+void Graph::addEdge(char, char) {
+
+}
+
+void Graph::addEdge(char source, char dest, int weight) {
+    addEdgeUndirected(source, dest, weight, graph_nodes);
+}
+
+
+
+void Graph::addVertex(char name) {
+    auto *temp_node = new Node;
+    temp_node->label = name;
+    graph_nodes.push_back(temp_node);
+    vertex_count++;
+}
+
+
+
+//TODO: number of edges is working, but the edges are not being added properly if there is more than one edge
+//TODO: for debug, need to print the char ID instead of the address in the destination print
+
+void Graph::print_graph() {
+
+    cout << "Vertex count: " << vertex_count << endl;
+    cout << "Edge count: " << edge_count << endl;
+
+    int count = 0;
+
+    for (auto print_node : graph_nodes) {
+        cout << "\n======== Node ========" << endl;
+        cout << "Label: " << print_node->label << endl;
+
+        cout << "\n======== Edges ========" << endl;
+
+        cout << "Num of edges: " << print_node->edge_list.size() << endl;
+
+        for(auto print_edge : print_node->edge_list){
+            cout << "-----------------------" << endl;
+            cout << "Source: "  << print_edge->source->label << endl;
+            cout << "Destination: " << print_edge->dest->label << endl;
+            cout << "Weight: "  << print_edge->weight << endl;
+        }
+    }
+}
+
+//**********************************************   PRIVATE METHODS  **********************************************
 
 void Graph::makeDirectedGraph(string file_name) {
     ifstream data_file;
@@ -60,51 +110,21 @@ void Graph::makeUndirectedGraph(string file_name) {
     }
 }
 
-void Graph::addVertex(char name) {
-    auto *temp_node = new Node;
-    temp_node->label = name;
-    graph_nodes.push_back(*temp_node);
-    vertex_count++;
-}
+bool Graph::addEdgeUndirected(char source, char dest, int weight, vector<Node*> graph) {
 
-void Graph::addEdge(char source, char dest, int weight) {
     Edge *temp_edge = new Edge;
-
     temp_edge->weight = weight;
 
-    int i = 0;
-
-    for (auto &temp_source : graph_nodes) {
-        cout << "Debug for add edge: " << temp_source.label << endl;
-        if(source == temp_source.label){
-            cout << "*** MATCH - SOURCE ***  - " << temp_source.label << endl;
-            temp_source.edge_list.push_back(temp_edge);
+    for(auto add_edge : graph) {
+        if(add_edge->label == source){
+            temp_edge->source = add_edge;
+            add_edge->edge_list.push_back(temp_edge);
         }
-        i++;
-    }
-    for (auto &temp_dest : graph_nodes) {
-        cout << "Debug for add edge: " << temp_dest.label << endl;
-        if(dest == temp_dest.label){
-            cout << "*** MATCH - DESTINATION ***  - " << temp_dest.label << endl;
-            temp_dest.edge_list.push_back(temp_edge);
+        if(add_edge->label == dest){
+            temp_edge->dest = add_edge;
+            add_edge->edge_list.push_back(temp_edge);
         }
     }
     edge_count++;
-}
-
-void Graph::print_graph() {
-
-    cout << "Vertex count: " << vertex_count << endl;
-    cout << "Edge count: " << edge_count << endl;
-
-    for (auto print_node : graph_nodes) {
-        cout << "\n======== Node ========" << endl;
-        cout << "Label: " << print_node.label << endl;
-
-        cout << "\n======== Edges ========" << endl;
-
-        cout << "Num of edges: " << print_node.edge_list.size() << endl;
-        cout << "Destination: " << endl;
-        cout << "Weight: " << endl;
-    }
+    return true;
 }

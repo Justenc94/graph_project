@@ -36,9 +36,11 @@ public:
 
     void makeGraph(std::string);
     void print_graph();
+    void addEdge(char, char);
+    void addEdge(char, char, int);
 
     void addVertex(char);
-    void addEdge(char, char, int);
+    bool addEdgeUndirected(char, char, int, vector<Node*>);
 
 
 private:
@@ -50,8 +52,7 @@ private:
     int edge_count;
     int vertex_count;
 
-    std::vector<Node> graph_nodes;
-    std::vector<Edge> edge_list;
+    vector<Node *> graph_nodes;
 
 };
 
