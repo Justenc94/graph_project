@@ -39,8 +39,12 @@ public:
     void addEdge(char, char);
     void addEdge(char, char, int);
 
+    int vertexCount();
+    int edgeCount();
+
     void addVertex(char);
     bool addEdgeUndirected(char, char, int, vector<Node*>);
+    bool addEdgeDirected(char, char);
 
 
 private:

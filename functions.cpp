@@ -20,8 +20,6 @@ int get_filesize(string file_name){
             ++size;
         }
     }
-
-
     data_file.close();
     return size;
 }

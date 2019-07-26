@@ -69,5 +69,10 @@ int main(int argc, char** argv) {
 
     graph.print_graph();
 
+    cout << "=======================" << endl;
+    cout << "Vertex count: " << graph.vertexCount() << endl;
+    cout << "Edge count: " << graph.edgeCount() << endl;
+
+
     return 0;
 }

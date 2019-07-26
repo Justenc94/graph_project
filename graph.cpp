@@ -34,8 +34,8 @@ void Graph::makeGraph(string file_name) {
     }
 }
 
-void Graph::addEdge(char, char) {
-
+void Graph::addEdge(char source, char dest) {
+    addEdgeDirected(source, dest);
 }
 
 void Graph::addEdge(char source, char dest, int weight) {
@@ -51,10 +51,13 @@ void Graph::addVertex(char name) {
     vertex_count++;
 }
 
+int Graph::vertexCount() {
+    return vertex_count;
+}
 
-
-//TODO: number of edges is working, but the edges are not being added properly if there is more than one edge
-//TODO: for debug, need to print the char ID instead of the address in the destination print
+int Graph::edgeCount() {
+    return edge_count;
+}
 
 void Graph::print_graph() {
 
@@ -125,6 +128,11 @@ bool Graph::addEdgeUndirected(char source, char dest, int weight, vector<Node*> 
             add_edge->edge_list.push_back(temp_edge);
         }
     }
+    edge_count++;
+    return true;
+}
+
+bool Graph::addEdgeDirected(char source, char dest) {
     edge_count++;
     return true;
 }
