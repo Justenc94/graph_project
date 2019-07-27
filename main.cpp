@@ -65,6 +65,8 @@ int main(int argc, char** argv) {
     graph.addVertex('e');
     graph.addVertex('f');
     graph.addVertex('g');
+    graph.addVertex('h');
+
 
 
 //    graph.addEdge('a', 'b', 10);
@@ -82,7 +84,8 @@ int main(int argc, char** argv) {
 
     graph.traverseBFS('b');
 
-    graph.print_graph();
+    graph.traverseDFS('a');
+
 
     cout << "\n***********************" << endl;
     cout << "Vertex count: " << graph.vertexCount() << endl;

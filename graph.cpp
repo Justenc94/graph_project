@@ -119,6 +119,14 @@ void Graph::traverseBFS(char start, vector<Node*> graph) {
 
     bool flag = false;
 
+    //set all nodes visited flag to false to allow for multiple traversals
+    for(auto set_visits : graph){
+        for(auto edges : set_visits->edge_list){
+            edges->dest->visited = false;
+            edges->source->visited = false;
+        }
+    }
+
     cout << "\n\n******* BFS *******" << endl;
     for(auto search : graph){
         if(start == search->label){
@@ -129,7 +137,7 @@ void Graph::traverseBFS(char start, vector<Node*> graph) {
 
         for(auto edges : search->edge_list){
             if(!edges->dest->visited && flag){
-                cout << edges->dest->label << ", ";
+                cout << edges->dest->label << "  ";
                 edges->dest->visited = true;
             }
         }
@@ -139,4 +147,26 @@ void Graph::traverseBFS(char start, vector<Node*> graph) {
 
 void Graph::traverseDFS(char start, vector<Node*> graph) {
 
+    bool flag = false;
+
+    //set all nodes visited flag to false to allow for multiple traversals
+    for(auto set_visits : graph){
+        for(auto edges : set_visits->edge_list){
+            edges->dest->visited = false;
+            edges->source->visited = false;
+        }
+    }
+
+    stack<Node*> stack;
+
+    cout << "******* DFS *******" << endl;
+    for(auto search : graph){
+        if(start == search->label){
+            cout << "Start: " << search->label << endl;
+            search->visited = true;
+            flag = true;
+            stack.push(search);
+        }
+    }
+    cout << "\n*******************" << endl << endl << endl;
 }
