@@ -17,6 +17,7 @@ struct Edge;
 struct Node {
     char label;
     vector<Edge *> edge_list;
+    bool visited = false;
 };
 
 struct Edge {

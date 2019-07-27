@@ -62,6 +62,10 @@ int main(int argc, char** argv) {
     graph.addVertex('b');
     graph.addVertex('c');
     graph.addVertex('d');
+    graph.addVertex('e');
+    graph.addVertex('f');
+    graph.addVertex('g');
+
 
 //    graph.addEdge('a', 'b', 10);
 //    graph.addEdge('a', 'c', 5);
@@ -70,10 +74,17 @@ int main(int argc, char** argv) {
     graph.addEdge('a', 'b');
     graph.addEdge('a', 'c');
     graph.addEdge('a', 'd');
+    graph.addEdge('b', 'e');
+    graph.addEdge('b', 'f');
+    graph.addEdge('f', 'g');
 
     graph.print_graph();
 
-    cout << "=======================" << endl;
+    graph.traverseBFS('b');
+
+    graph.print_graph();
+
+    cout << "\n***********************" << endl;
     cout << "Vertex count: " << graph.vertexCount() << endl;
     cout << "Edge count: " << graph.edgeCount() << endl;
 

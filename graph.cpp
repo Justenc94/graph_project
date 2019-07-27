@@ -37,6 +37,14 @@ void Graph::addVertex(char name) {
     vertex_count++;
 }
 
+void Graph::traverseBFS(char start) {
+    traverseBFS(start, graph_nodes);
+}
+
+void Graph::traverseDFS(char start) {
+    traverseDFS(start, graph_nodes);
+}
+
 int Graph::vertexCount() {
     return vertex_count;
 }
@@ -47,27 +55,25 @@ int Graph::edgeCount() {
 
 void Graph::print_graph() {
 
-    cout << "Vertex count: " << vertex_count << endl;
-    cout << "Edge count: " << edge_count << endl;
-
     int count = 0;
 
     for (auto print_node : graph_nodes) {
         cout << "\n======== Node ========" << endl;
         cout << "Label: " << print_node->label << endl;
+        cout << "Visited: " << print_node->visited << endl;
 
         cout << "\n======== Edges ========" << endl;
 
         cout << "Num of edges: " << print_node->edge_list.size() << endl;
 
-        for(auto print_edge : print_node->edge_list){
-            cout << "-----------------------" << endl;
-            cout << "Source: "  << print_edge->source->label << endl;
-            cout << "Destination: " << print_edge->dest->label << endl;
-            if(print_edge->weight != -1){
-                cout << "Weight: "  << print_edge->weight << endl;
-            }
-        }
+//        for(auto print_edge : print_node->edge_list){
+//            cout << "-----------------------" << endl;
+//            cout << "Source: "  << print_edge->source->label << endl;
+//            cout << "Destination: " << print_edge->dest->label << endl;
+//            if(print_edge->weight != -1){
+//                cout << "Weight: "  << print_edge->weight << endl;
+//            }
+//        }
     }
 }
 
@@ -107,4 +113,30 @@ bool Graph::addEdgeDirected(char source, char dest, vector<Node*> graph) {
     }
     edge_count++;
     return true;
+}
+
+void Graph::traverseBFS(char start, vector<Node*> graph) {
+
+    bool flag = false;
+
+    cout << "\n\n******* BFS *******" << endl;
+    for(auto search : graph){
+        if(start == search->label){
+            cout << "Start: " << search->label << endl;
+            search->visited = true;
+            flag = true;
+        }
+
+        for(auto edges : search->edge_list){
+            if(!edges->dest->visited && flag){
+                cout << edges->dest->label << ", ";
+                edges->dest->visited = true;
+            }
+        }
+    }
+    cout << "\n*******************" << endl << endl << endl;
+}
+
+void Graph::traverseDFS(char start, vector<Node*> graph) {
+
 }

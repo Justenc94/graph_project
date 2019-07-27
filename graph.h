@@ -25,9 +25,7 @@ public:
     //TODO: Depth-First traversal method - outputs to console
     //TODO: *BONUS* Point to Point traversal method - outputs to console
     //TODO: Method to output adjacency matrix to a new data file
-    //TODO: Graph manipulation: Add a vertex
     //TODO: Graph manipulation: Remove a vertex
-    //TODO: Graph manipulation: Add an edge
     //TODO: Graph manipulation: Remove an edge
     //TODO: Graph information: Is connected: true or false
     //TODO: Graph information: List disconnected: Lists vertices that aren't connected
@@ -36,17 +34,25 @@ public:
     void addEdge(char, char);
     void addEdge(char, char, int);
 
+    void traverseBFS(char);
+    void traverseDFS(char);
+
     int vertexCount();
     int edgeCount();
 
     void addVertex(char);
-    bool addEdgeUndirected(char, char, int, vector<Node*>);
-    bool addEdgeDirected(char, char, vector<Node*>);
+
 
 
 private:
     //TODO: Helper methods or above methods that need to access private data
     //TODO: Will probably have to have helper methods for the cases: undirected weighted, directed unweighted
+
+    bool addEdgeUndirected(char, char, int, vector<Node*>);
+    bool addEdgeDirected(char, char, vector<Node*>);
+
+    void traverseBFS(char, vector<Node*>);
+    void traverseDFS(char, vector<Node*>);
 
     int edge_count;
     int vertex_count;
