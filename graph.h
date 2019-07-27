@@ -29,12 +29,9 @@ public:
     //TODO: Graph manipulation: Remove a vertex
     //TODO: Graph manipulation: Add an edge
     //TODO: Graph manipulation: Remove an edge
-    //TODO: Graph information: Get number of vertices
-    //TODO: Graph information: Get number of edges
     //TODO: Graph information: Is connected: true or false
     //TODO: Graph information: List disconnected: Lists vertices that aren't connected
 
-    void makeGraph(std::string);
     void print_graph();
     void addEdge(char, char);
     void addEdge(char, char, int);
@@ -44,14 +41,12 @@ public:
 
     void addVertex(char);
     bool addEdgeUndirected(char, char, int, vector<Node*>);
-    bool addEdgeDirected(char, char);
+    bool addEdgeDirected(char, char, vector<Node*>);
 
 
 private:
     //TODO: Helper methods or above methods that need to access private data
     //TODO: Will probably have to have helper methods for the cases: undirected weighted, directed unweighted
-    void makeDirectedGraph(std::string);
-    void makeUndirectedGraph(std::string);
 
     int edge_count;
     int vertex_count;

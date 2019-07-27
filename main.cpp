@@ -63,9 +63,13 @@ int main(int argc, char** argv) {
     graph.addVertex('c');
     graph.addVertex('d');
 
-    graph.addEdge('a', 'b', 10);
-    graph.addEdge('a', 'c', 5);
-    graph.addEdge('a', 'd', 15);
+//    graph.addEdge('a', 'b', 10);
+//    graph.addEdge('a', 'c', 5);
+//    graph.addEdge('a', 'd', 15);
+
+    graph.addEdge('a', 'b');
+    graph.addEdge('a', 'c');
+    graph.addEdge('a', 'd');
 
     graph.print_graph();
 
