@@ -42,7 +42,16 @@ void Graph::traverseBFS(char start) {
 }
 
 void Graph::traverseDFS(char start) {
-    traverseDFS(start, graph_nodes);
+    //set all nodes visited flag to false to allow for multiple traversals
+    for(auto set_visits : graph_nodes){
+        for(auto edges : set_visits->edge_list){
+            edges->dest->visited = false;
+            edges->source->visited = false;
+        }
+    }
+    cout << "******* DFS *******" << endl;
+    traverseDFS(start, graph_nodes.front());
+    cout << "\n*******************" << endl << endl;
 }
 
 int Graph::vertexCount() {
@@ -145,28 +154,33 @@ void Graph::traverseBFS(char start, vector<Node*> graph) {
     cout << "\n*******************" << endl << endl << endl;
 }
 
-void Graph::traverseDFS(char start, vector<Node*> graph) {
+void Graph::traverseDFS(char start, Node *temp_node) {
+    temp_node->visited = true;
 
-    bool flag = false;
+    static bool flag = false;
+    static int count = 0;
 
-    //set all nodes visited flag to false to allow for multiple traversals
-    for(auto set_visits : graph){
-        for(auto edges : set_visits->edge_list){
-            edges->dest->visited = false;
-            edges->source->visited = false;
+    if(!flag){
+        for(auto search : graph_nodes){
+            if(start == search->label){
+                flag = true;
+                traverseDFS(start, search);
+            }
         }
     }
 
-    stack<Node*> stack;
+    if(count == 0){
+        cout << "Start: " << temp_node->label << endl;
+        count++;
+    }
 
-    cout << "******* DFS *******" << endl;
-    for(auto search : graph){
-        if(start == search->label){
-            cout << "Start: " << search->label << endl;
-            search->visited = true;
-            flag = true;
-            stack.push(search);
+
+    for(auto temp_edge : temp_node->edge_list){
+        if(!temp_edge->dest->visited){
+            cout << temp_edge->dest->label << "  ";
+            traverseDFS(start, temp_edge->dest);
+        }else{
+            return;
         }
     }
-    cout << "\n*******************" << endl << endl << endl;
 }

@@ -66,6 +66,7 @@ int main(int argc, char** argv) {
     graph.addVertex('f');
     graph.addVertex('g');
     graph.addVertex('h');
+    graph.addVertex('i');
 
 
 
@@ -79,12 +80,16 @@ int main(int argc, char** argv) {
     graph.addEdge('b', 'e');
     graph.addEdge('b', 'f');
     graph.addEdge('f', 'g');
+    graph.addEdge('f', 'i');
+    graph.addEdge('f', 'a');
+    graph.addEdge('f', 'd');
+
 
     graph.print_graph();
 
-    graph.traverseBFS('b');
+    graph.traverseBFS('a');
 
-    graph.traverseDFS('a');
+    graph.traverseDFS('b');
 
 
     cout << "\n***********************" << endl;
