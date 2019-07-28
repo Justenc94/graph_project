@@ -100,7 +100,6 @@ bool Graph::addEdgeUndirected(char source, char dest, int weight, vector<Node*> 
         }
         if(add_edge->label == dest){
             temp_edge->dest = add_edge;
-            add_edge->edge_list.push_back(temp_edge);
         }
     }
     edge_count++;
