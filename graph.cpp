@@ -49,7 +49,16 @@ void Graph::addVertex(char name) {
 }
 
 void Graph::traverseBFS(char start) {
-    traverseBFS(start, graph_nodes);
+    //set all nodes visited flag to false to allow for multiple traversals
+    for(auto set_visits : graph_nodes){
+        for(auto edges : set_visits->edge_list){
+            edges->dest->visited = false;
+            edges->source->visited = false;
+        }
+    }
+    cout << "******* BFS *******" << endl;
+    traverseBFS(start, graph_nodes.front());
+    cout << "\n*******************" << endl << endl;
 }
 
 void Graph::traverseDFS(char start) {
@@ -140,50 +149,56 @@ void Graph::removeEdge(char source, char dest, Node *node, Edge *temp_edge) {
     cout << "Testing Remove Edge..." << endl;
     int i = 0;
     for(auto temp :  node->edge_list){
-        cout << "LABEL: " << temp->dest->label << endl;
         if(temp->dest->label == dest){
             node->edge_list.erase(node->edge_list.begin()+i);
+            if(node->edge_list.size() > 2){
+                temp->dest->edge_list.erase(temp->dest->edge_list.begin()+i);
+            }
             edge_count--;
         }
         i++;
     }
 }
 
-void Graph::traverseBFS(char start, vector<Node*> graph) {
+void Graph::traverseBFS(char start, Node *temp_node) {
 
-    bool flag = false;
+    static bool flag = false;
+    static int count = 0;
 
-    //set all nodes visited flag to false to allow for multiple traversals
-    for(auto set_visits : graph){
-        for(auto edges : set_visits->edge_list){
-            edges->dest->visited = false;
-            edges->source->visited = false;
-        }
-    }
-
-    cout << "\n\n******* BFS *******" << endl;
-    for(auto search : graph){
-        if(start == search->label){
-            cout << "Start: " << search->label << endl;
-            search->visited = true;
-            flag = true;
-        }
-
-        for(auto edges : search->edge_list){
-            if(!edges->dest->visited && flag){
-                cout << edges->dest->label << "  ";
-                edges->dest->visited = true;
+    if(!flag){
+        for(auto search : graph_nodes){
+            if(start == search->label){
+                flag = true;
+                traverseBFS(start, search);
+                return;
             }
         }
     }
-    cout << "\n*******************" << endl << endl << endl;
+
+    if(count == 0){
+        temp_node->visited = true;
+        cout << "Start: " << temp_node->label << endl;
+        count++;
+    }
+
+
+    for(auto temp_edge : temp_node->edge_list){
+        if(!temp_edge->dest->visited) {
+            cout << temp_edge->dest->label << "  ";
+        }
+    }
+
+    for(auto temp_edge : temp_node->edge_list){
+        traverseBFS(start, temp_edge->dest);
+        temp_edge->dest->visited = true;
+    }
 }
 
 void Graph::traverseDFS(char start, Node *temp_node) {
     temp_node->visited = true;
 
     static bool flag = false;
-    static int count = 0;
+    static int countDFS = 0;
 
     if(!flag){
         for(auto search : graph_nodes){
@@ -194,9 +209,9 @@ void Graph::traverseDFS(char start, Node *temp_node) {
         }
     }
 
-    if(count == 0){
+    if(countDFS == 0){
         cout << "Start: " << temp_node->label << endl;
-        count++;
+        countDFS++;
     }
 
 

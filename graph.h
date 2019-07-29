@@ -54,7 +54,7 @@ private:
     bool addEdgeUndirected(char, char, int, vector<Node*>);
     bool addEdgeDirected(char, char, vector<Node*>);
 
-    void traverseBFS(char, vector<Node*>);
+    void traverseBFS(char, Node*);
     void traverseDFS(char, Node*);
 
     int edge_count;
