@@ -10,6 +10,7 @@ Notes:
 Graph::Graph() {
     edge_count = 0;
     vertex_count = 0;
+    weighted = false;
 }
 
 Graph::~Graph() {
@@ -53,11 +54,17 @@ void Graph::traverseBFS(char start) {
     for(auto set_visits : graph_nodes){
         for(auto edges : set_visits->edge_list){
             edges->dest->visited = false;
-            edges->source->visited = false;
+            if(weighted){
+                edges->source->visited = false;
+            }
         }
     }
-    cout << "******* BFS *******" << endl;
-    traverseBFS(start, graph_nodes.front());
+    cout << "\n******* BFS *******" << endl;
+    if(!weighted){
+        traverseBFSdir(start, graph_nodes.front());
+    }else{
+        traverseBFS(start, graph_nodes.front());
+    }
     cout << "\n*******************" << endl << endl;
 }
 
@@ -112,6 +119,7 @@ bool Graph::addEdgeUndirected(char source, char dest, int weight, vector<Node*> 
 
     Edge *temp_edge = new Edge;
     temp_edge->weight = weight;
+    weighted = true;
 
     for(auto add_edge : graph) {
         if(add_edge->label == source){
@@ -129,6 +137,7 @@ bool Graph::addEdgeUndirected(char source, char dest, int weight, vector<Node*> 
 }
 
 bool Graph::addEdgeDirected(char source, char dest, vector<Node*> graph) {
+
     Edge *temp_edge = new Edge;
     temp_edge->weight = -1;
 
@@ -191,6 +200,41 @@ void Graph::traverseBFS(char start, Node *temp_node) {
     for(auto temp_edge : temp_node->edge_list){
         traverseBFS(start, temp_edge->dest);
         temp_edge->dest->visited = true;
+    }
+}
+
+void Graph::traverseBFSdir(char start, Node *temp_node) {
+
+    static bool flag = false;
+    static int count = 0;
+
+    if(!flag){
+        for(auto search : graph_nodes){
+            if(start == search->label){
+                flag = true;
+                traverseBFSdir(start, search);
+                return;
+            }
+        }
+    }
+
+    if(count == 0){
+        temp_node->visited = true;
+        cout << "Start: " << temp_node->label << endl;
+        count++;
+    }
+
+
+    for(auto temp_edge : temp_node->edge_list){
+        if(!temp_edge->dest->visited) {
+            cout << temp_edge->dest->label << "  ";
+        }
+    }
+
+    for(auto temp_edge : temp_node->edge_list){
+        traverseBFSdir(start, temp_edge->dest);
+        temp_edge->dest->visited = true;
+        return;
     }
 }
 
