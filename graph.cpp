@@ -28,6 +28,17 @@ void Graph::addEdge(char source, char dest, int weight) {
     addEdgeUndirected(source, dest, weight, graph_nodes);
 }
 
+void Graph::removeEdge(char source, char dest) {
+    for(auto search : graph_nodes){
+        if(source == search->label){
+            for(auto search_edge : search->edge_list){
+                removeEdge(source, dest, search, search_edge);
+                return;
+            }
+        }
+    }
+}
+
 
 
 void Graph::addVertex(char name) {
@@ -100,6 +111,8 @@ bool Graph::addEdgeUndirected(char source, char dest, int weight, vector<Node*> 
         }
         if(add_edge->label == dest){
             temp_edge->dest = add_edge;
+            //add_edge->edge_list.push_back(temp_edge);
+            //TODO: FIX THIS, NOT ADDING EDGE TO BOTH NODES
         }
     }
     edge_count++;
@@ -121,6 +134,19 @@ bool Graph::addEdgeDirected(char source, char dest, vector<Node*> graph) {
     }
     edge_count++;
     return true;
+}
+
+void Graph::removeEdge(char source, char dest, Node *node, Edge *temp_edge) {
+    cout << "Testing Remove Edge..." << endl;
+    int i = 0;
+    for(auto temp :  node->edge_list){
+        cout << "LABEL: " << temp->dest->label << endl;
+        if(temp->dest->label == dest){
+            node->edge_list.erase(node->edge_list.begin()+i);
+            edge_count--;
+        }
+        i++;
+    }
 }
 
 void Graph::traverseBFS(char start, vector<Node*> graph) {

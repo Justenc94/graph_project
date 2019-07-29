@@ -70,27 +70,33 @@ int main(int argc, char** argv) {
 
 
 
-    graph.addEdge('a', 'b', 10);
-    graph.addEdge('a', 'c', 5);
-    graph.addEdge('a', 'd', 15);
-    graph.addEdge('b', 'e', 10);
-    graph.addEdge('e', 'f', 5);
-    graph.addEdge('f', 'g', 15);
-    graph.addEdge('g', 'h', 10);
-    graph.addEdge('e', 'i', 5);
+//    graph.addEdge('a', 'b', 10);
+//    graph.addEdge('a', 'c', 5);
+//    graph.addEdge('a', 'd', 15);
+//    graph.addEdge('b', 'e', 10);
+//    graph.addEdge('e', 'f', 5);
+//    graph.addEdge('f', 'g', 15);
+//    graph.addEdge('g', 'h', 10);
+//    graph.addEdge('e', 'i', 5);
 
-//    graph.addEdge('a', 'b');
-//    graph.addEdge('a', 'c');
-//    graph.addEdge('a', 'd');
-//    graph.addEdge('b', 'e');
-//    graph.addEdge('b', 'f');
-//    graph.addEdge('f', 'g');
-//    graph.addEdge('f', 'i');
-//    graph.addEdge('f', 'a');
-//    graph.addEdge('f', 'd');
+
+    graph.addEdge('a', 'b');
+    graph.addEdge('a', 'c');
+    graph.addEdge('a', 'd');
+    graph.addEdge('b', 'e');
+    graph.addEdge('b', 'f');
+    graph.addEdge('f', 'g');
+    graph.addEdge('f', 'i');
+    graph.addEdge('f', 'a');
+    graph.addEdge('f', 'd');
 
 
     graph.print_graph();
+
+    graph.removeEdge('a', 'b');
+
+    graph.print_graph();
+
 
     graph.traverseBFS('a');
 
