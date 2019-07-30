@@ -61,9 +61,9 @@ int main(int argc, char** argv) {
     graph.addVertex('a');
     graph.addVertex('b');
     graph.addVertex('c');
-//    graph.addVertex('d');
-//    graph.addVertex('e');
-//    graph.addVertex('f');
+    graph.addVertex('d');
+    graph.addVertex('e');
+    graph.addVertex('f');
 //    graph.addVertex('g');
 //    graph.addVertex('h');
 //    graph.addVertex('i');
@@ -87,7 +87,7 @@ int main(int argc, char** argv) {
 
 
     graph.addEdge('a', 'b');
-//    graph.addEdge('a', 'c');
+    //graph.addEdge('a', 'c');
 //    graph.addEdge('a', 'd');
 //    graph.addEdge('e', 'b');
 //    graph.addEdge('b', 'f');
@@ -118,6 +118,14 @@ int main(int argc, char** argv) {
     }else{
         cout << "NOT CONNECTED" << endl;
     }
+
+    if(graph.showDisconnected()){
+        cout << "No disconnected nodes to display." << endl;
+    }else{
+        cout << "  <----- Disconnected nodes" << endl;
+    }
+
+
 
 
     return 0;

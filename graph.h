@@ -24,7 +24,6 @@ public:
     ~Graph();
     //TODO: *BONUS* Point to Point traversal method - outputs to console
     //TODO: Method to output adjacency matrix to a new data file
-    //TODO: Graph information: List disconnected: Lists vertices that aren't connected
 
     void print_graph();
     void addEdge(char, char);
@@ -42,6 +41,7 @@ public:
     void addVertex(char);
 
     bool isConnected();
+    bool showDisconnected();
 
 
 private:

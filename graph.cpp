@@ -144,6 +144,42 @@ bool Graph::isConnected() {
     return true;
 }
 
+bool Graph::showDisconnected() {
+    queue<Node*>node_queue;
+    Node *temp_node = *graph_nodes.begin();
+    bool flag = true;
+
+    //set all nodes visited flag to false to allow for multiple traversals
+    for(auto set_visits : graph_nodes){
+        for(auto edges : set_visits->edge_list){
+            edges->dest->visited = false;
+            edges->source->visited = false;
+        }
+    }
+
+    node_queue.push(temp_node);
+
+    while(!node_queue.empty()){
+        temp_node = node_queue.front();
+        node_queue.pop();
+        temp_node->visited = true;
+
+        for(auto temp_graph : temp_node->edge_list){
+            if(!temp_graph->dest->visited){
+                temp_graph->dest->visited = true;
+                node_queue.push(temp_graph->dest);
+            }
+        }
+    }
+    for(auto temp_graph : graph_nodes){
+        if(!temp_graph->visited){
+            cout << temp_graph->label << "  ";
+            flag = false;
+        }
+    }
+    return flag;
+}
+
 void Graph::print_graph() {
 
     int count = 0;
