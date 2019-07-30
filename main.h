@@ -11,6 +11,7 @@ Notes:
 #include <vector>
 #include <fstream>
 #include <ctime>
+#include <cstring>
 #include <cstdlib>
 #include "functions.h"
 #include "graph.h"

@@ -50,9 +50,12 @@ int main(int argc, char** argv) {
         cout << "UNDIRECTED GRAPH" << endl;
         directed_or_not = false;
     }
+//---------------------------------------------------------------------------------------------------------------------
+//------------------------------------ MAKE AND TEST DIRECTED GRAPH  --------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------
 
-    //makes directed graph and tests methods
     if(directed_or_not){
+
         getline(data_file, data_string, '\n');
         stringstream ss(data_string);
         while(getline(ss, data_string, ',')){
@@ -183,16 +186,11 @@ int main(int argc, char** argv) {
         graph.traverseDFS('a');
     }
 
-//--------------------------  makes undirected weighted graph and tests methods  ---------------------------------------
-
+//---------------------------------------------------------------------------------------------------------------------
+//------------------------------------ MAKE AND TEST UNDIRECTED GRAPH  ------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------
     else{
         cout << "undirected graph" << endl;
-
-//        stringstream ss(data_string);
-//        while(getline(ss, data_string, ',')){
-//            labels[i] = data_string;
-//            i++;
-//        }
 
         char undirected_labels[16]  = {
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
@@ -203,24 +201,39 @@ int main(int argc, char** argv) {
             cout << "Label: " << labels[i] << endl;
         }
 
-
-
-
-        for (int i = 0; i < file_size-1; ++i) {
-            if(i == 0){
+        data_file.seekg(0);
+        for (int i = 0; i < file_size; ++i) {
+            for (int j = 0; j < file_size; ++j) {
+                if(j == file_size-1){
+                    getline(data_file, data_string, '\n');
+                    if(data_string[0] == 'x'){
+                        data_string = "-9";
+                    }
+                    istringstream buffer(data_string);
+                    buffer >> adj_matrix[i][j];
+                    break;
+                }
                 getline(data_file, data_string, ',');
-            }
-            for (int j = 0; j < file_size-1; ++j) {
-                getline(data_file, data_string, ',');
+                if(data_string[0] == 'x'){
+                    data_string = "-9";
+                }
                 istringstream buffer(data_string);
                 buffer >> adj_matrix[i][j];
             }
         }
 
+//        cout << "Adjacency matrix: " << endl;
+//        for (int i = 0; i < file_size; ++i) {
+//            for (int j = 0; j < file_size; ++j) {
+//                cout << adj_matrix[i][j] << " ";
+//            }
+//            cout << endl;
+//        }
+
         cout << "=======================================================" << endl;
         cout << "Adding all nodes in data file to the graph..." << endl;
         cout << "=======================================================" << endl;
-        for (int i = 0; i < file_size-1; i++) {
+        for (int i = 0; i < file_size; i++) {
             cout << labels[i] << " added to graph." << endl;
             graph.addVertex(*labels[i].c_str());
         }
