@@ -25,12 +25,14 @@ public:
     //TODO: *BONUS* Point to Point traversal method - outputs to console
     //TODO: Method to output adjacency matrix to a new data file
 
+    //for debug only
     void print_graph();
+
     void addEdge(char, char);
     void addEdge(char, char, int);
 
-    void removeEdge(char, char);
-    void removeVertex(char);
+    bool removeEdge(char, char);
+    bool removeVertex(char);
 
     void traverseBFS(char);
     void traverseDFS(char);
@@ -42,6 +44,8 @@ public:
 
     bool isConnected();
     bool showDisconnected();
+
+    void outputGraph();
 
 
 private:
