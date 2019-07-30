@@ -10,6 +10,8 @@ Notes:
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <ctime>
+#include <cstdlib>
 #include "functions.h"
 #include "graph.h"
 #include "data.h"

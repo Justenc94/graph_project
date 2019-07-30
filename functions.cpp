@@ -38,3 +38,8 @@ int check_file(int arg_count, char **file_name){
         return -1;
     }
 }
+
+int random_range(int min, int max) {
+    //returns a random number between min and max inclusive
+    return (rand() % (max - min + 1)) +min;
+}

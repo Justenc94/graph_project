@@ -16,6 +16,7 @@ using namespace std;
 
 int check_file(int, char**);
 int get_filesize(string);
+int random_range(int, int);
 
 
 #endif //FUNCTIONS_H

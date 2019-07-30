@@ -9,6 +9,8 @@ Notes:
 
 int main(int argc, char** argv) {
 
+    srand(time(NULL));
+
     //checks files name passed from terminal
     int file_position = check_file(argc, argv);
 
@@ -16,8 +18,6 @@ int main(int argc, char** argv) {
     if(file_position == -1){
         cout << "ERROR: Please re-run program and enter a valid file name." << endl;
         return 0;
-    }else{
-        cout << "File is a valid file." << endl;
     }
 
     //get file size
@@ -27,8 +27,6 @@ int main(int argc, char** argv) {
     if (file_size == 0){
         cout << "ERROR: File has no data inside it, please re-run program with a non empty file." << endl;
         return 0;
-    }else{
-        cout << "File is NOT empty" << endl;
     }
 
     Graph graph;
@@ -53,134 +51,282 @@ int main(int argc, char** argv) {
         directed_or_not = false;
     }
 
-    //data_file.seekg(0);
-    getline(data_file, data_string, '\n');
-    stringstream ss(data_string);
-    while(getline(ss, data_string, ',')){
-        labels[i] = data_string;
-        i++;
-    }
-
-
-    for (int i = 0; i < file_size-1; ++i) {
-        getline(data_file, data_string, ',');
-
-        for (int j = 0; j < file_size-1; ++j) {
-            getline(data_file, data_string, ',');
-            istringstream buffer(data_string);
-            buffer >> adj_matrix[i][j];
+    //makes directed graph and tests methods
+    if(directed_or_not){
+        getline(data_file, data_string, '\n');
+        stringstream ss(data_string);
+        while(getline(ss, data_string, ',')){
+            labels[i] = data_string;
+            i++;
         }
+
+
+        for (int i = 0; i < file_size-1; ++i) {
+            if(i == 0){
+                getline(data_file, data_string, ',');
+            }
+            for (int j = 0; j < file_size-1; ++j) {
+                getline(data_file, data_string, ',');
+                istringstream buffer(data_string);
+                buffer >> adj_matrix[i][j];
+            }
+        }
+
+
+        cout << "=======================================================" << endl;
+        cout << "Adding all nodes in data file to the graph..." << endl;
+        cout << "=======================================================" << endl;
+        for (int i = 0; i < file_size-1; i++) {
+            cout << labels[i] << " added to graph." << endl;
+            graph.addVertex(*labels[i].c_str());
+        }
+        cout << "*******************************************************" << endl;
+        cout << "Vertex count: " << graph.vertexCount() << endl;
+        cout << "Edge count: " << graph.edgeCount() << endl;
+        if(graph.isConnected()){
+            cout << "Graph is connected." << endl;
+        }else{
+            cout << "Graph is not connected." << endl;
+        }
+        if(graph.showDisconnected()){
+            cout << "No disconnected nodes to display." << endl;
+        }else{
+            cout << "  <----- Disconnected node(s)" << endl;
+        }
+
+        cout << "=======================================================" << endl;
+        cout << "Adding all edges in data file to the graph..." << endl;
+        cout << "=======================================================" << endl;
+        for (int i = 0; i < file_size-1; i++) {
+            for (int j = 0; j < file_size-1; ++j) {
+                if(adj_matrix[i][j] == 1){
+                    graph.addEdge(*labels[i].c_str(), *labels[j].c_str());
+                    cout << "Edge added: " << labels[i] << " ---> " << labels[j] << endl;
+                }
+            }
+        }
+        cout << "*******************************************************" << endl;
+        cout << "Vertex count: " << graph.vertexCount() << endl;
+        cout << "Edge count: " << graph.edgeCount() << endl;
+        if(graph.isConnected()){
+            cout << "Graph is connected." << endl;
+        }else{
+            cout << "Graph is not connected." << endl;
+        }
+        if(graph.showDisconnected()){
+            cout << "No disconnected nodes to display." << endl;
+        }else{
+            cout << "  <----- Disconnected node(s)" << endl;
+        }
+        cout << "-------------------------------------------------------" << endl;
+        graph.traverseBFS('a');
+        graph.traverseDFS('a');
+
+        int num_tests = random_range(2, 5);
+        //labels to test add vertex - capitalized letters to distinguish from data file nodes
+        char add_labels[6] ={
+                'A', 'B', 'C', 'D', 'E', 'F'
+        };
+
+
+        cout << "=======================================================" << endl;
+        cout << "Testing add vertex " << num_tests << " times." << endl;
+        cout << "=======================================================" << endl;
+        for (int i = 0; i < num_tests; ++i) {
+            cout << add_labels[i] << " added to graph." << endl;
+            graph.addVertex(add_labels[i]);
+        }
+        cout << "*******************************************************" << endl;
+        cout << "Vertex count: " << graph.vertexCount() << endl;
+        cout << "Edge count: " << graph.edgeCount() << endl;
+        if(graph.isConnected()){
+            cout << "Graph is connected." << endl;
+        }else{
+            cout << "Graph is not connected." << endl;
+        }
+        if(graph.showDisconnected()){
+            cout << "No disconnected nodes to display." << endl;
+        }else{
+            cout << "  <----- Disconnected node(s)" << endl;
+        }
+        cout << "-------------------------------------------------------" << endl;
+        graph.traverseBFS('a');
+        graph.traverseDFS('a');
+
+
+        cout << "=======================================================" << endl;
+        cout << "Testing add edge " << num_tests << " times." << endl;
+        cout << "=======================================================" << endl;
+        graph.addEdge(*labels[0].c_str(), add_labels[0]);
+        cout << "Edge added: " << labels[0] << " ---> " << add_labels[0] << endl;
+        for (int i = 0; i < num_tests-1; ++i) {
+            int rand_source = random_range(0, 2);
+            int rand_dest = random_range(0, 2);
+            cout << "Edge added: " << add_labels[i] << " ---> " << add_labels[i+1] << endl;
+            graph.addEdge(add_labels[i], add_labels[i+1]);
+        }
+        cout << "*******************************************************" << endl;
+        cout << "Vertex count: " << graph.vertexCount() << endl;
+        cout << "Edge count: " << graph.edgeCount() << endl;
+        if(graph.isConnected()){
+            cout << "Graph is connected." << endl;
+        }else{
+            cout << "Graph is not connected." << endl;
+        }
+        if(graph.showDisconnected()){
+            cout << "No disconnected nodes to display." << endl;
+        }else{
+            cout << "  <----- Disconnected node(s)" << endl;
+        }
+        cout << "-------------------------------------------------------" << endl;
+        graph.traverseBFS('a');
+        graph.traverseDFS('a');
     }
 
-//    for (int i = 0; i < file_size-1; ++i) {
-//        for (int j = 0; j < file_size-1; ++j) {
-//            cout << adj_matrix[i][j] << " ";
+//--------------------------  makes undirected weighted graph and tests methods  ---------------------------------------
+
+    else{
+        cout << "undirected graph" << endl;
+
+//        stringstream ss(data_string);
+//        while(getline(ss, data_string, ',')){
+//            labels[i] = data_string;
+//            i++;
 //        }
-//        cout << endl;
-//    }
 
-    cout << "Adding all nodes in data file to the graph..." << endl;
-    for (int i = 0; i < file_size-1; i++) {
-        cout << labels[i] << " added to graph." << endl;
-        graph.addVertex(*labels[i].c_str());
+        char undirected_labels[16]  = {
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
+        };
+
+        for (int i = 0; i < file_size; ++i) {
+            labels[i] = undirected_labels[i];
+            cout << "Label: " << labels[i] << endl;
+        }
+
+
+
+
+        for (int i = 0; i < file_size-1; ++i) {
+            if(i == 0){
+                getline(data_file, data_string, ',');
+            }
+            for (int j = 0; j < file_size-1; ++j) {
+                getline(data_file, data_string, ',');
+                istringstream buffer(data_string);
+                buffer >> adj_matrix[i][j];
+            }
+        }
+
+        cout << "=======================================================" << endl;
+        cout << "Adding all nodes in data file to the graph..." << endl;
+        cout << "=======================================================" << endl;
+        for (int i = 0; i < file_size-1; i++) {
+            cout << labels[i] << " added to graph." << endl;
+            graph.addVertex(*labels[i].c_str());
+        }
+        cout << "*******************************************************" << endl;
+        cout << "Vertex count: " << graph.vertexCount() << endl;
+        cout << "Edge count: " << graph.edgeCount() << endl;
+        if(graph.isConnected()){
+            cout << "Graph is connected." << endl;
+        }else{
+            cout << "Graph is not connected." << endl;
+        }
+        if(graph.showDisconnected()){
+            cout << "No disconnected nodes to display." << endl;
+        }else{
+            cout << "  <----- Disconnected node(s)" << endl;
+        }
+
+        cout << "=======================================================" << endl;
+        cout << "Adding all edges in data file to the graph..." << endl;
+        cout << "=======================================================" << endl;
+        for (int i = 0; i < file_size-1; i++) {
+            for (int j = 0; j < file_size-1; ++j) {
+                if(adj_matrix[i][j] == 1){
+                    graph.addEdge(*labels[i].c_str(), *labels[j].c_str());
+                    cout << "Edge added: " << labels[i] << " ---> " << labels[j] << endl;
+                }
+            }
+        }
+        cout << "*******************************************************" << endl;
+        cout << "Vertex count: " << graph.vertexCount() << endl;
+        cout << "Edge count: " << graph.edgeCount() << endl;
+        if(graph.isConnected()){
+            cout << "Graph is connected." << endl;
+        }else{
+            cout << "Graph is not connected." << endl;
+        }
+        if(graph.showDisconnected()){
+            cout << "No disconnected nodes to display." << endl;
+        }else{
+            cout << "  <----- Disconnected node(s)" << endl;
+        }
+        cout << "-------------------------------------------------------" << endl;
+        graph.traverseBFS('a');
+        graph.traverseDFS('a');
+
+        int num_tests = random_range(2, 5);
+        //labels to test add vertex - capitalized letters to distinguish from data file nodes
+        char add_labels[6] ={
+                'A', 'B', 'C', 'D', 'E', 'F'
+        };
+
+
+        cout << "=======================================================" << endl;
+        cout << "Testing add vertex " << num_tests << " times." << endl;
+        cout << "=======================================================" << endl;
+        for (int i = 0; i < num_tests; ++i) {
+            cout << add_labels[i] << " added to graph." << endl;
+            graph.addVertex(add_labels[i]);
+        }
+        cout << "*******************************************************" << endl;
+        cout << "Vertex count: " << graph.vertexCount() << endl;
+        cout << "Edge count: " << graph.edgeCount() << endl;
+        if(graph.isConnected()){
+            cout << "Graph is connected." << endl;
+        }else{
+            cout << "Graph is not connected." << endl;
+        }
+        if(graph.showDisconnected()){
+            cout << "No disconnected nodes to display." << endl;
+        }else{
+            cout << "  <----- Disconnected node(s)" << endl;
+        }
+        cout << "-------------------------------------------------------" << endl;
+        graph.traverseBFS('a');
+        graph.traverseDFS('a');
+
+
+        cout << "=======================================================" << endl;
+        cout << "Testing add edge " << num_tests << " times." << endl;
+        cout << "=======================================================" << endl;
+        graph.addEdge(*labels[0].c_str(), add_labels[0]);
+        cout << "Edge added: " << labels[0] << " ---> " << add_labels[0] << endl;
+        for (int i = 0; i < num_tests-1; ++i) {
+            int rand_source = random_range(0, 2);
+            int rand_dest = random_range(0, 2);
+            cout << "Edge added: " << add_labels[i] << " ---> " << add_labels[i+1] << endl;
+            graph.addEdge(add_labels[i], add_labels[i+1]);
+        }
+        cout << "*******************************************************" << endl;
+        cout << "Vertex count: " << graph.vertexCount() << endl;
+        cout << "Edge count: " << graph.edgeCount() << endl;
+        if(graph.isConnected()){
+            cout << "Graph is connected." << endl;
+        }else{
+            cout << "Graph is not connected." << endl;
+        }
+        if(graph.showDisconnected()){
+            cout << "No disconnected nodes to display." << endl;
+        }else{
+            cout << "  <----- Disconnected node(s)" << endl;
+        }
+        cout << "-------------------------------------------------------" << endl;
+        graph.traverseBFS('a');
+        graph.traverseDFS('a');
+
     }
-    cout << "Vertex count: " << graph.vertexCount() << endl;
-    if(graph.isConnected()){
-        cout << "Graph is connected." << endl;
-    }else{
-        cout << "Graph is not connected." << endl;
-    }
-
-    if(graph.showDisconnected()){
-        cout << "No disconnected nodes to display." << endl;
-    }else{
-        cout << "  <----- Disconnected nodes" << endl;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//    graph.addVertex('a');
-//    graph.addVertex('b');
-//    graph.addVertex('c');
-//    graph.addVertex('d');
-//    graph.addVertex('e');
-//    graph.addVertex('f');
-////    graph.addVertex('g');
-////    graph.addVertex('h');
-////    graph.addVertex('i');
-////    graph.addVertex('z');
-//
-//
-//
-////    graph.addEdge('a', 'b', 10);
-////    graph.addEdge('a', 'c', 5);
-////    graph.addEdge('a', 'd', 15);
-////    graph.addEdge('b', 'e', 10);
-////    graph.addEdge('e', 'f', 5);
-////    graph.addEdge('f', 'g', 15);
-////    graph.addEdge('g', 'h', 10);
-////    graph.addEdge('e', 'i', 5);
-////    graph.addEdge('c', 'z', 50);
-////    graph.addEdge('c', 'f', 50);
-////    graph.addEdge('z', 'f', 50);
-//
-//
-//
-//
-//    graph.addEdge('a', 'b');
-//    //graph.addEdge('a', 'c');
-////    graph.addEdge('a', 'd');
-////    graph.addEdge('e', 'b');
-////    graph.addEdge('b', 'f');
-////    graph.addEdge('e', 'g');
-////    graph.addEdge('e', 'i');
-////    graph.addEdge('f', 'g');
-////    graph.addEdge('f', 'd');
-//
-//
-//    graph.print_graph();
-//
-//    //graph.removeEdge('f', 'g');
-//    //graph.removeVertex('z');
-//
-//
-//    graph.traverseBFS('a');
-//
-//    graph.traverseDFS('a');
-//
-//
-//    cout << "\n***********************" << endl;
-//    cout << "Vertex count: " << graph.vertexCount() << endl;
-//    cout << "Edge count: " << graph.edgeCount() << endl;
-//
-//    cout << "\n\n***** Testing is connected method *****" << endl;
-//    if(graph.isConnected()){
-//        cout << "CONNECTED" << endl;
-//    }else{
-//        cout << "NOT CONNECTED" << endl;
-//    }
-//
-//    if(graph.showDisconnected()){
-//        cout << "No disconnected nodes to display." << endl;
-//    }else{
-//        cout << "  <----- Disconnected nodes" << endl;
-//    }
-//
-//
-//
 
     return 0;
 }

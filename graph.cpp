@@ -166,7 +166,7 @@ bool Graph::showDisconnected() {
 
         for(auto temp_graph : temp_node->edge_list){
             if(!temp_graph->dest->visited){
-                temp_graph->dest->visited = true;
+                temp_graph->source->visited = temp_graph->dest->visited = true;
                 node_queue.push(temp_graph->dest);
             }
         }
@@ -222,6 +222,7 @@ bool Graph::addEdgeDirected(char source, char dest, vector<Node*> graph) {
 
     Edge *temp_edge = new Edge;
     temp_edge->weight = -1;
+    bool flag = false;
 
     for(auto add_edge : graph) {
         if(add_edge->label == source){
@@ -230,10 +231,11 @@ bool Graph::addEdgeDirected(char source, char dest, vector<Node*> graph) {
         }
         if(add_edge->label == dest){
             temp_edge->dest = add_edge;
+            flag = true;
+            edge_count++;
         }
     }
-    edge_count++;
-    return true;
+    return flag;
 }
 
 void Graph::removeEdge(char source, char dest, Node *node) {
