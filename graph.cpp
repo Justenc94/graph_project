@@ -148,6 +148,7 @@ bool Graph::showDisconnected() {
     queue<Node*>node_queue;
     Node *temp_node = *graph_nodes.begin();
     bool flag = true;
+    temp_node->visited = false;
 
     //set all nodes visited flag to false to allow for multiple traversals
     for(auto set_visits : graph_nodes){
@@ -162,7 +163,6 @@ bool Graph::showDisconnected() {
     while(!node_queue.empty()){
         temp_node = node_queue.front();
         node_queue.pop();
-        temp_node->visited = true;
 
         for(auto temp_graph : temp_node->edge_list){
             if(!temp_graph->dest->visited){

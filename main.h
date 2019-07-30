@@ -9,6 +9,7 @@ Notes:
 #define MAIN_H
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "functions.h"
 #include "graph.h"
 #include "data.h"
