@@ -85,13 +85,13 @@ void Graph::traverseBFS(char start) {
             }
         }
     }
-    cout << "\n******* BFS *******" << endl;
-    if(!weighted){
-        traverseBFSdir(start, graph_nodes.front());
-    }else{
-        traverseBFS(start, graph_nodes.front());
+    cout << "\n*********** BFS ***********" << endl;
+    for(auto temp_graph : graph_nodes){
+        if(temp_graph->label == start){
+            traverseBFS(start, temp_graph);
+        }
     }
-    cout << "\n*******************" << endl << endl;
+    cout << "\n***************************" << endl << endl;
 }
 
 void Graph::traverseDFS(char start) {
@@ -102,9 +102,13 @@ void Graph::traverseDFS(char start) {
             edges->source->visited = false;
         }
     }
-    cout << "******* DFS *******" << endl;
-    traverseDFS(start, graph_nodes.front());
-    cout << "\n*******************" << endl << endl;
+    cout << "*********** DFS ***********" << endl;
+    for(auto temp_graph : graph_nodes){
+        if(temp_graph->label == start){
+            traverseDFS(start, temp_graph);
+        }
+    }
+    cout << "\n***************************" << endl << endl;
 }
 
 int Graph::vertexCount() {
@@ -127,15 +131,6 @@ void Graph::print_graph() {
         cout << "\n======== Edges ========" << endl;
 
         cout << "Num of edges: " << print_node->edge_list.size() << endl;
-
-//        for(auto print_edge : print_node->edge_list){
-//            cout << "-----------------------" << endl;
-//            cout << "Source: "  << print_edge->source->label << endl;
-//            cout << "Destination: " << print_edge->dest->label << endl;
-//            if(print_edge->weight != -1){
-//                cout << "Weight: "  << print_edge->weight << endl;
-//            }
-//        }
     }
 }
 
@@ -182,7 +177,6 @@ bool Graph::addEdgeDirected(char source, char dest, vector<Node*> graph) {
 
 //TODO: NOT WORKING FOR DIRECTED GRAPH YET
 
-
 void Graph::removeEdge(char source, char dest, Node *node, Edge *temp_edge) {
     cout << "Testing Remove Edge..." << endl;
     int i = 0;
@@ -200,71 +194,24 @@ void Graph::removeEdge(char source, char dest, Node *node, Edge *temp_edge) {
 
 void Graph::traverseBFS(char start, Node *temp_node) {
 
-    static bool flag = false;
-    static int count = 0;
+    queue<Node*>node_queue;
 
-    if(!flag){
-        for(auto search : graph_nodes){
-            if(start == search->label){
-                flag = true;
-                traverseBFS(start, search);
-                return;
+    node_queue.push(temp_node);
+
+    while(!node_queue.empty()){
+        temp_node = node_queue.front();
+        node_queue.pop();
+        cout << temp_node->label << "  ";
+
+        for(auto temp_graph : temp_node->edge_list){
+            if(!temp_graph->dest->visited){
+                temp_graph->dest->visited = true;
+                node_queue.push(temp_graph->dest);
             }
         }
     }
-
-    if(count == 0){
-        temp_node->visited = true;
-        cout << "Start: " << temp_node->label << endl;
-        count++;
-    }
-
-
-    for(auto temp_edge : temp_node->edge_list){
-        if(!temp_edge->dest->visited) {
-            cout << temp_edge->dest->label << "  ";
-        }
-    }
-
-    for(auto temp_edge : temp_node->edge_list){
-        traverseBFS(start, temp_edge->dest);
-        temp_edge->dest->visited = true;
-    }
 }
 
-void Graph::traverseBFSdir(char start, Node *temp_node) {
-
-    static bool flag = false;
-    static int count = 0;
-
-    if(!flag){
-        for(auto search : graph_nodes){
-            if(start == search->label){
-                flag = true;
-                traverseBFSdir(start, search);
-                return;
-            }
-        }
-    }
-
-    if(count == 0){
-        temp_node->visited = true;
-        cout << "Start: " << temp_node->label << endl;
-        count++;
-    }
-
-    for(auto temp_edge : temp_node->edge_list){
-        if(!temp_edge->dest->visited) {
-            cout << temp_edge->dest->label << "  ";
-        }
-    }
-
-    for(auto temp_edge : temp_node->edge_list){
-        traverseBFSdir(start, temp_edge->dest);
-        temp_edge->dest->visited = true;
-        return;
-    }
-}
 
 void Graph::traverseDFS(char start, Node *temp_node) {
     temp_node->visited = true;

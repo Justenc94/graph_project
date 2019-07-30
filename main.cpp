@@ -87,12 +87,12 @@ int main(int argc, char** argv) {
 
 
 //    graph.addEdge('a', 'b');
-//    graph.addEdge('a', 'c');
+//    graph.addEdge('a', 'z');
 //    graph.addEdge('a', 'd');
 //    graph.addEdge('b', 'e');
 //    graph.addEdge('b', 'f');
-//    graph.addEdge('f', 'g');
-//    graph.addEdge('f', 'i');
+//    graph.addEdge('e', 'g');
+//    graph.addEdge('e', 'i');
 //    graph.addEdge('f', 'a');
 //    graph.addEdge('f', 'd');
 
@@ -100,14 +100,12 @@ int main(int argc, char** argv) {
     graph.print_graph();
 
     //graph.removeEdge('f', 'g');
-    graph.removeVertex('z');
-
-    graph.print_graph();
+    //graph.removeVertex('z');
 
 
-    graph.traverseBFS('a');
+    graph.traverseBFS('b');
 
-    graph.traverseDFS('a');
+    graph.traverseDFS('b');
 
 
     cout << "\n***********************" << endl;
