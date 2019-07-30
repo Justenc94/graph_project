@@ -61,13 +61,13 @@ int main(int argc, char** argv) {
     graph.addVertex('a');
     graph.addVertex('b');
     graph.addVertex('c');
-    graph.addVertex('d');
-    graph.addVertex('e');
-    graph.addVertex('f');
-    graph.addVertex('g');
-    graph.addVertex('h');
-    graph.addVertex('i');
-    graph.addVertex('z');
+//    graph.addVertex('d');
+//    graph.addVertex('e');
+//    graph.addVertex('f');
+//    graph.addVertex('g');
+//    graph.addVertex('h');
+//    graph.addVertex('i');
+//    graph.addVertex('z');
 
 
 
@@ -87,14 +87,14 @@ int main(int argc, char** argv) {
 
 
     graph.addEdge('a', 'b');
-    graph.addEdge('a', 'z');
-    graph.addEdge('a', 'd');
-    graph.addEdge('e', 'b');
-    graph.addEdge('b', 'f');
-    graph.addEdge('e', 'g');
-    graph.addEdge('e', 'i');
-    graph.addEdge('f', 'g');
-    graph.addEdge('f', 'd');
+//    graph.addEdge('a', 'c');
+//    graph.addEdge('a', 'd');
+//    graph.addEdge('e', 'b');
+//    graph.addEdge('b', 'f');
+//    graph.addEdge('e', 'g');
+//    graph.addEdge('e', 'i');
+//    graph.addEdge('f', 'g');
+//    graph.addEdge('f', 'd');
 
 
     graph.print_graph();
@@ -111,6 +111,13 @@ int main(int argc, char** argv) {
     cout << "\n***********************" << endl;
     cout << "Vertex count: " << graph.vertexCount() << endl;
     cout << "Edge count: " << graph.edgeCount() << endl;
+
+    cout << "\n\n***** Testing is connected method *****" << endl;
+    if(graph.isConnected()){
+        cout << "CONNECTED" << endl;
+    }else{
+        cout << "NOT CONNECTED" << endl;
+    }
 
 
     return 0;
