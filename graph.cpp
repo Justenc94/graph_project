@@ -30,17 +30,15 @@ void Graph::addEdge(char source, char dest, int weight) {
 }
 
 void Graph::removeEdge(char source, char dest) {
-    for(auto search : graph_nodes){
-        if(source == search->label){
-            for(auto search_edge : search->edge_list){
-                removeEdge(source, dest, search, search_edge);
-                return;
+    for(auto search_graph : graph_nodes){
+        for(auto search_edge : search_graph->edge_list){
+            if(search_edge->source->label == source && search_edge->dest->label == dest){
+                removeEdge(source, dest, search_graph);
+                edge_count--;
             }
         }
     }
 }
-
-
 
 void Graph::addVertex(char name) {
     auto *temp_node = new Node;
@@ -50,28 +48,21 @@ void Graph::addVertex(char name) {
 }
 
 void Graph::removeVertex(char remove_label) {
-    cout << "\n\nDeleting Node..." << endl;
     int i = 0;
+
     for(auto remove_node : graph_nodes){
-        cout << "Looping to find node..." << endl;
-        cout << "Label: " << remove_node->label << endl;
         if(remove_node->label == remove_label){
-            cout << "FOUND NODE TO DEL: " << remove_node->label << endl;
-
-            cout << "Edge list size: " << remove_node->edge_list.size() << endl;
-
-            for(auto remove_edges : remove_node->edge_list){
-                cout << "Removing edge..." << endl;
-                removeEdge(remove_label, remove_edges->dest->label);
-            }
-
-            cout << "Deleting node*****" << endl;
-            delete remove_node;
             graph_nodes.erase(graph_nodes.begin()+i);
             vertex_count--;
-            return;
         }
         i++;
+    }
+    for(auto remove_node : graph_nodes){
+        for(auto remove_edges : remove_node->edge_list){
+            if(remove_edges->dest->label == remove_label){
+                removeEdge(remove_edges->source->label, remove_label);
+            }
+        }
     }
 }
 
@@ -175,13 +166,11 @@ bool Graph::addEdgeDirected(char source, char dest, vector<Node*> graph) {
     return true;
 }
 
-//TODO: NOT WORKING FOR DIRECTED GRAPH YET
-
-void Graph::removeEdge(char source, char dest, Node *node, Edge *temp_edge) {
-    cout << "Testing Remove Edge..." << endl;
+void Graph::removeEdge(char source, char dest, Node *node) {
     int i = 0;
+
     for(auto temp :  node->edge_list){
-        if(temp->dest->label == dest){
+        if(temp->source->label == source && temp->dest->label == dest){
             node->edge_list.erase(node->edge_list.begin()+i);
             if(node->edge_list.size() > 2){
                 temp->dest->edge_list.erase(temp->dest->edge_list.begin()+i);

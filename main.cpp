@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
     graph.addEdge('b', 'f');
     graph.addEdge('e', 'g');
     graph.addEdge('e', 'i');
-    graph.addEdge('f', 'a');
+    graph.addEdge('f', 'g');
     graph.addEdge('f', 'd');
 
 

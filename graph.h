@@ -47,7 +47,7 @@ public:
 
 private:
 
-    void removeEdge(char, char, Node*, Edge*);
+    void removeEdge(char, char, Node*);
 
     bool addEdgeUndirected(char, char, int, vector<Node*>);
     bool addEdgeDirected(char, char, vector<Node*>);
