@@ -71,30 +71,30 @@ int main(int argc, char** argv) {
 
 
 
-    graph.addEdge('a', 'b', 10);
-    graph.addEdge('a', 'c', 5);
-    graph.addEdge('a', 'd', 15);
-    graph.addEdge('b', 'e', 10);
-    graph.addEdge('e', 'f', 5);
-    graph.addEdge('f', 'g', 15);
-    graph.addEdge('g', 'h', 10);
-    graph.addEdge('e', 'i', 5);
-    graph.addEdge('c', 'z', 50);
-    graph.addEdge('c', 'f', 50);
-    graph.addEdge('z', 'f', 50);
+//    graph.addEdge('a', 'b', 10);
+//    graph.addEdge('a', 'c', 5);
+//    graph.addEdge('a', 'd', 15);
+//    graph.addEdge('b', 'e', 10);
+//    graph.addEdge('e', 'f', 5);
+//    graph.addEdge('f', 'g', 15);
+//    graph.addEdge('g', 'h', 10);
+//    graph.addEdge('e', 'i', 5);
+//    graph.addEdge('c', 'z', 50);
+//    graph.addEdge('c', 'f', 50);
+//    graph.addEdge('z', 'f', 50);
 
 
 
 
-//    graph.addEdge('a', 'b');
-//    graph.addEdge('a', 'z');
-//    graph.addEdge('a', 'd');
-//    graph.addEdge('b', 'e');
-//    graph.addEdge('b', 'f');
-//    graph.addEdge('e', 'g');
-//    graph.addEdge('e', 'i');
-//    graph.addEdge('f', 'a');
-//    graph.addEdge('f', 'd');
+    graph.addEdge('a', 'b');
+    graph.addEdge('a', 'z');
+    graph.addEdge('a', 'd');
+    graph.addEdge('e', 'b');
+    graph.addEdge('b', 'f');
+    graph.addEdge('e', 'g');
+    graph.addEdge('e', 'i');
+    graph.addEdge('f', 'a');
+    graph.addEdge('f', 'd');
 
 
     graph.print_graph();
@@ -103,9 +103,9 @@ int main(int argc, char** argv) {
     //graph.removeVertex('z');
 
 
-    graph.traverseBFS('b');
+    graph.traverseBFS('a');
 
-    graph.traverseDFS('b');
+    graph.traverseDFS('a');
 
 
     cout << "\n***********************" << endl;

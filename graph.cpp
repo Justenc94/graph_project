@@ -202,6 +202,7 @@ void Graph::traverseBFS(char start, Node *temp_node) {
         temp_node = node_queue.front();
         node_queue.pop();
         cout << temp_node->label << "  ";
+        temp_node->visited = true;
 
         for(auto temp_graph : temp_node->edge_list){
             if(!temp_graph->dest->visited){
@@ -215,28 +216,11 @@ void Graph::traverseBFS(char start, Node *temp_node) {
 
 void Graph::traverseDFS(char start, Node *temp_node) {
     temp_node->visited = true;
-
-    static bool flag = false;
-    static int countDFS = 0;
-
-    if(!flag){
-        for(auto search : graph_nodes){
-            if(start == search->label){
-                flag = true;
-                traverseDFS(start, search);
-            }
-        }
-    }
-
-    if(countDFS == 0){
-        cout << "Start: " << temp_node->label << endl;
-        countDFS++;
-    }
+    cout << temp_node->label << "  ";
 
 
     for(auto temp_edge : temp_node->edge_list){
         if(!temp_edge->dest->visited){
-            cout << temp_edge->dest->label << "  ";
             traverseDFS(start, temp_edge->dest);
         }else{
             return;
